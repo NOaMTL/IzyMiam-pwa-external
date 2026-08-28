@@ -1,0 +1,167 @@
+/* PWA point de préparation — design compact, mobile-first, forts contrastes
+   (utilisation en extérieur / cuisine). Pas de framework : CSS maison. */
+
+:root {
+  --bg: #f1f5f9;
+  --card: #ffffff;
+  --ink: #0f172a;
+  --muted: #64748b;
+  --line: #e2e8f0;
+  --brand: #1e293b;
+  --accent: #f59e0b;
+  --accent-ink: #92400e;
+  --ok: #059669;
+  --ok-bg: #ecfdf5;
+  --warn: #d97706;
+  --warn-bg: #fffbeb;
+  --danger: #dc2626;
+  --radius: 12px;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 15px;
+  -webkit-font-smoothing: antialiased;
+}
+
+button { font: inherit; cursor: pointer; }
+input { font: inherit; }
+
+/* ---------- Layout ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 20;
+  background: var(--brand); color: #fff;
+  padding: 10px 14px;
+  padding-top: calc(10px + env(safe-area-inset-top));
+  display: flex; align-items: center; gap: 10px;
+}
+.topbar .title { font-weight: 700; font-size: 16px; flex: 1; min-width: 0; }
+.topbar .title small { display: block; font-weight: 500; font-size: 12px; opacity: .75; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pill {
+  display: inline-flex; align-items: center; gap: 5px;
+  border-radius: 999px; padding: 4px 10px;
+  font-size: 12px; font-weight: 600;
+  background: rgba(255,255,255,.15); color: #fff;
+}
+.pill.offline { background: #7c2d12; }
+.dot { width: 8px; height: 8px; border-radius: 50%; background: #4ade80; }
+.pill.offline .dot { background: #fbbf24; }
+
+.container { max-width: 720px; margin: 0 auto; padding: 12px 12px calc(24px + env(safe-area-inset-bottom)); }
+
+/* ---------- Onglets ---------- */
+.tabs { display: flex; gap: 8px; margin: 4px 0 12px; }
+.tab {
+  flex: 1; border: 1px solid var(--line); background: var(--card);
+  border-radius: var(--radius); padding: 10px 8px;
+  font-weight: 600; font-size: 14px; color: var(--muted);
+}
+.tab.active { background: var(--brand); border-color: var(--brand); color: #fff; }
+.tab .count {
+  display: inline-block; min-width: 22px; margin-left: 6px;
+  border-radius: 999px; padding: 1px 6px;
+  background: var(--accent); color: var(--brand);
+  font-size: 12px; font-weight: 800;
+}
+
+/* ---------- Cartes commande ---------- */
+.order {
+  background: var(--card); border: 1px solid var(--line);
+  border-radius: var(--radius); margin-bottom: 12px; overflow: hidden;
+}
+.order.done { opacity: .75; }
+.order-head {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 12px; border-bottom: 1px solid var(--line);
+}
+.order-ref { font-weight: 800; font-size: 16px; }
+.order-time { color: var(--muted); font-size: 12px; margin-left: auto; white-space: nowrap; }
+.badge {
+  border-radius: 6px; padding: 2px 8px; font-size: 11px; font-weight: 700;
+}
+.badge.preorder { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+.badge.new { background: var(--warn-bg); color: var(--warn); }
+.badge.ready { background: var(--ok-bg); color: var(--ok); }
+
+.order-meta { padding: 8px 12px 0; color: var(--muted); font-size: 13px; }
+.order-meta b { color: var(--ink); }
+.order-note {
+  margin: 8px 12px 0; padding: 8px 10px; border-radius: 8px;
+  background: var(--warn-bg); color: var(--accent-ink); font-size: 13px; font-weight: 600;
+}
+
+/* ---------- Articles ---------- */
+.items { padding: 8px 8px 10px; display: flex; flex-direction: column; gap: 6px; }
+.item {
+  display: flex; align-items: flex-start; gap: 10px;
+  border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px; background: #fff;
+  width: 100%; text-align: left;
+}
+.item.prepared { background: var(--ok-bg); border-color: #a7f3d0; }
+.item:active { transform: scale(.995); }
+.check {
+  width: 26px; height: 26px; border-radius: 8px; flex: none; margin-top: 1px;
+  border: 2px solid var(--line); display: grid; place-items: center;
+  font-size: 16px; color: #fff; background: #fff;
+}
+.item.prepared .check { background: var(--ok); border-color: var(--ok); }
+.item-body { flex: 1; min-width: 0; }
+.item-name { font-weight: 700; font-size: 15px; }
+.item-name .qty { color: var(--accent-ink); background: var(--warn-bg); border-radius: 6px; padding: 0 6px; margin-right: 6px; }
+.item.prepared .item-name { text-decoration: line-through; color: var(--muted); }
+.variations { margin-top: 3px; display: flex; flex-wrap: wrap; gap: 4px; }
+.variation {
+  background: #eef2ff; color: #3730a3; border: 1px solid #c7d2fe;
+  border-radius: 6px; padding: 1px 7px; font-size: 12px; font-weight: 700;
+}
+.item-note { margin-top: 3px; font-size: 12px; color: var(--accent-ink); font-weight: 600; }
+
+/* ---------- États ---------- */
+.empty { text-align: center; color: var(--muted); padding: 48px 16px; }
+.empty .big { font-size: 40px; margin-bottom: 8px; }
+.error-banner {
+  background: #fef2f2; color: var(--danger); border: 1px solid #fecaca;
+  border-radius: 10px; padding: 10px 12px; font-size: 13px; margin-bottom: 12px;
+}
+
+/* ---------- Login ---------- */
+.login-wrap { min-height: 100dvh; display: grid; place-items: center; padding: 20px; }
+.login-card {
+  width: 100%; max-width: 380px; background: var(--card);
+  border: 1px solid var(--line); border-radius: 16px; padding: 24px;
+}
+.login-logo {
+  width: 56px; height: 56px; border-radius: 14px; background: var(--brand);
+  color: var(--accent); display: grid; place-items: center;
+  font-weight: 800; font-size: 20px; margin: 0 auto 12px;
+}
+.login-card h1 { font-size: 18px; text-align: center; margin: 0 0 2px; }
+.login-card p { color: var(--muted); font-size: 13px; text-align: center; margin: 0 0 18px; }
+.field { margin-bottom: 12px; }
+.field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.field input {
+  width: 100%; border: 1px solid var(--line); border-radius: 10px;
+  padding: 12px; font-size: 15px; background: #f8fafc;
+}
+.field input:focus { outline: 2px solid var(--accent); border-color: transparent; }
+.btn {
+  width: 100%; border: 0; border-radius: 10px; padding: 13px;
+  background: var(--brand); color: #fff; font-weight: 700; font-size: 15px;
+}
+.btn:disabled { opacity: .6; }
+.btn.ghost { background: transparent; color: var(--muted); font-weight: 600; }
+
+/* ---------- Divers ---------- */
+.iconbtn {
+  border: 0; background: rgba(255,255,255,.15); color: #fff;
+  border-radius: 8px; width: 36px; height: 36px; font-size: 16px;
+}
+.section-title {
+  font-size: 12px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .04em; color: var(--muted); margin: 16px 2px 8px;
+}
