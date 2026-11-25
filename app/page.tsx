@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import {
-  clearSession,
+  logout as logoutSession,
   fetchDoneOrders,
   fetchTodoOrders,
   getToken,
@@ -244,7 +244,7 @@ export default function BoardPage() {
   }
 
   function logout() {
-    clearSession();
+    logoutSession();
     router.replace("/login");
   }
 

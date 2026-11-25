@@ -3,7 +3,7 @@
    des commandes périmées servies depuis un cache. */
 // Bump la version à chaque changement de stratégie : l'activation purge les
 // anciens caches (évite de servir un shell d'un build précédent).
-const CACHE = "prep-shell-v2";
+const CACHE = "prep-shell-v3";
 const SHELL = ["/", "/login", "/manifest.webmanifest"];
 
 self.addEventListener("install", (event) => {

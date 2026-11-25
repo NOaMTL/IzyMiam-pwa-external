@@ -4,6 +4,7 @@
   "private": true,
   "description": "PWA des points de préparation EventPick : réception et traitement en temps réel des commandes qui les concernent.",
   "scripts": {
+    "test": "node --test test/*.test.cjs",
     "dev": "next dev -p 3020",
     "build": "next build",
     "start": "next start -p 3020",
